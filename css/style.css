@@ -1,0 +1,32 @@
+:root{
+    --grass: rgb(11, 204, 11);
+    --fire: rgb(245, 108, 58);
+    --water: rgb(104, 173, 253);
+    --bug: greenyellow;
+    --normal: #eef89a;
+    --ice: rgb(199, 248, 255);
+    --dark: rgb(44, 44, 44);
+    --fairy: pink;
+    --poison: rgb(108, 108, 152);
+    --ghost: purple;
+    --rock: rgb(21, 58, 9);
+    --ground: #ffff75;
+    --steel: rgb(184, 172, 172);
+    --dragon: #1524ff;
+    --fighting: #a20c0c;
+    --psychic: #ef1254;
+    --flying: cyan;
+    --electric: yellow;
+}
+
+body{
+    background-color: #fbf1f1;
+}
+
+.profile{
+    font-family: 'Arial';
+}
+
+.profile-cont{
+    width: fit-content;
+}
