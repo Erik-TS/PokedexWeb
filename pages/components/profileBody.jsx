@@ -5,14 +5,14 @@ export default function(props){
                 <h6 className="fw-bold">Types</h6>
                 <hr className="w-100 my-0" />
                 { props.types.map( value => { 
-                    return <p style={{textShadow: '1px 1px 2px black', backgroundColor: 'var(--' + value + ')'}} className="badge my-2">{value.toUpperCase()}</p> 
+                    return <p key={Math.random()} style={{textShadow: '1px 1px 2px black', backgroundColor: 'var(--' + value + ')'}} className="badge my-2">{value.toUpperCase()}</p> 
                 }) }
             </div>
             <div className="border-bottom border-dark bg-white">
                 <h6 className="fw-bold">Abilities</h6>
                 <hr className="my-0"/>
                 {props.abilities.map(value => {
-                    return <p style={{color: 'black'}} className="badge mb-0">{value}</p>
+                    return <p key={Math.random()} style={{color: 'black'}} className="badge mb-0">{value}</p>
                 })}
             </div>
             <div className="container">

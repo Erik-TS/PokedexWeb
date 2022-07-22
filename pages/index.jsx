@@ -18,65 +18,51 @@ export default function(props){
         setPokemon(value)
     }
 
-    function searchAPI(){
-        const urlSearch = 'https://pokeapi.co/api/v2/pokemon/' + document.querySelector('input').value.toLowerCase()
-        const req = https.request(urlSearch, (res) => {
-            let chunk = []
-            res.on('data', d => {
-                chunk.push(d)
-            }).on('end', () => {
-                let data = Buffer.concat(chunk)
-                let info
-                try{
-                    info = JSON.parse(data)
-                    let img = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/'
-                    if(info.id < 10){
-                        img = `${img}00${info.id}.png`
-                    }
-                    else if(info.id < 100){
-                        img = `${img}0${info.id}.png`
-                    }
-                    else{
-                        img = `${img}${info.id}.png`
-                    }
+    function fetchPokeApi(){
+        const url = 'https://pokeapi.co/api/v2/pokemon/' + document.querySelector('input').value.toLowerCase()
+        fetch(url)
+        .then( response => response.json())
+        .then( res => {
+            let img = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/'
+            if(res.id < 10) img = `${img}00${res.id}.png`
+            else if(res.id < 100) img = `${img}0${res.id}.png`
+            else img = `${img}${res.id}.png`
 
-                    handlePokemon({
-                        //First letter upper case
-                        name: info.species.name[0].toUpperCase() + info.species.name.substring(1),
-                        id: info.id,
-                        imgUrl: img,
-                        types: info.types.map( value => { return value.type.name }),
-                        abilities: info.abilities.map( value => { return value.ability.name }),
-                        weight: info.weight,
-                        height: info.height
-                    })
+            handlePokemon(
+                {
+                    name: res.species.name[0].toUpperCase() + res.species.name.substring(1),
+                    id: res.id,
+                    imgUrl: img,
+                    types: res.types.map( value => value.type.name ),
+                    abilities: res.abilities.map( value => value.ability.name),
+                    weight: res.weight,
+                    height: res.height
                 }
-                catch(e){
-                    alert('Name or NationalDex ID is invalid')
-                }
-            })
+            )
         })
-        
-        req.end()
+        .catch( () => alert('Not Found!') )
     }
 
+    //Press Enter trigger fetchPokeApi()
     useEffect(() => {
-        document.addEventListener('keydown', e => {
-            e.key === 'Enter' && searchAPI()
-        })
+        let listener = ( e ) => e.key === 'Enter' && fetchPokeApi()
+
+        document.addEventListener('keydown', listener)
+        //The 'useEffect' needs to be cleaned so as not to trigger effects several times
+        return () => document.removeEventListener('keydown', listener)
     })
 
     return(
         <div>
-            <navbar className='navbar bg-danger'>
+            <div className='navbar bg-danger'>
                 <div className='mx-auto text-center'>
                     <label>Name or NatDex ID</label>
                     <input className='form-control' type={'text'}/>
                     <input className='my-2 btn btn-outline-dark' 
                     type={'button'} 
-                    onClick={searchAPI} value={'Submit'} />
+                    onClick={fetchPokeApi} value={'Submit'} />
                 </div>
-            </navbar>
+            </div>
             <Profile name={pokemon.name} 
             id={pokemon.id} 
             imgUrl={pokemon.imgUrl} 
