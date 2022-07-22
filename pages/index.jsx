@@ -1,6 +1,6 @@
 import https from 'https'
 import { useEffect, useState } from 'react'
-import Profile from './profile'
+import Profile from './components/profile'
 
 export default function(props){
 
