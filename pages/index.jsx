@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Profile from './components/profile'
-import Stats from './components/stats'
 
 export default function(props){
 
