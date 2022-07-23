@@ -1,6 +1,6 @@
-import https from 'https'
 import { useEffect, useState } from 'react'
 import Profile from './components/profile'
+import Stats from './components/stats'
 
 export default function(props){
 
@@ -11,7 +11,8 @@ export default function(props){
         types: [],
         abilities: [],
         weight: '',
-        height: ''
+        height: '',
+        stats: [0, 0, 0, 0, 0, 0]
     })
 
     function handlePokemon(value){
@@ -36,7 +37,8 @@ export default function(props){
                     types: res.types.map( value => value.type.name ),
                     abilities: res.abilities.map( value => value.ability.name),
                     weight: res.weight,
-                    height: res.height
+                    height: res.height,
+                    stats: res.stats.map( value => value.base_stat)
                 }
             )
         })
@@ -69,7 +71,8 @@ export default function(props){
             types={pokemon.types} 
             abilities={pokemon.abilities}
             weight={pokemon.weight}
-            height={pokemon.height} />
+            height={pokemon.height}
+            stats={pokemon.stats} />
         </div>
     )
 }

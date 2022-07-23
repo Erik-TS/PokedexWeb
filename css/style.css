@@ -25,6 +25,7 @@ body{
 
 .profile{
     font-family: 'Arial';
+    justify-content: center;
 }
 
 .profile-cont{

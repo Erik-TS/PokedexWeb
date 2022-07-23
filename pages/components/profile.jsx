@@ -1,6 +1,17 @@
 import ProfileHead from './profileHead'
 import ProfileBody from './profileBody'
+import { useState, useEffect } from 'react'
+import Stats from './stats'
+
 export default function Profile(props){
+
+    const [graph, setGraph] = useState(<Stats key={props.key} name={props.name} dataArr={props.stats} />)
+    function handleGraph(value){
+        setGraph(value)
+    }
+
+    
+
     return (
         //If pokemon state has no data, all the component is hidden
         <div className='profile text-center' style={{visibility: props.id === '' && 'hidden'}}>
@@ -15,6 +26,7 @@ export default function Profile(props){
                 abilities={props.abilities}
                 types={props.types} />
             </div>    
+            <Stats key={props.id} name={props.name} dataArr={props.stats} />
         </div>
     )
 }
