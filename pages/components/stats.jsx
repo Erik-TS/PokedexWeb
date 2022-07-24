@@ -40,6 +40,7 @@ export default function Stats(props){
             ],
         })
         setChartOptions({
+            indexAxis: 'y',
             responsive: true,
             plugins:{
                 legend:{
@@ -53,6 +54,7 @@ export default function Stats(props){
         })
     }, [])
 
+    //Chart needs id to get updated
     return(
         <div className={'stats w-25 mx-auto'}>
             <Bar datasetIdKey={props.key} options={chartOptions} data={chartData} />            

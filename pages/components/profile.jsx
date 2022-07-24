@@ -1,6 +1,5 @@
 import ProfileHead from './profileHead'
 import ProfileBody from './profileBody'
-import Stats from './stats'
 
 export default function Profile(props){
     return (
@@ -17,7 +16,6 @@ export default function Profile(props){
                 abilities={props.abilities}
                 types={props.types} />
             </div>    
-            <Stats key={props.id} name={props.name} dataArr={props.stats} />
         </div>
     )
 }
