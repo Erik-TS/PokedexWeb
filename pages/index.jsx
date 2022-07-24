@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Profile from './components/profile'
+import ProfileArea from './components/profileArea'
 
 export default function(props){
 
@@ -64,7 +64,7 @@ export default function(props){
                     onClick={fetchPokeApi} value={'Submit'} />
                 </div>
             </div>
-            <Profile name={pokemon.name} 
+            <ProfileArea name={pokemon.name} 
             id={pokemon.id} 
             imgUrl={pokemon.imgUrl} 
             types={pokemon.types} 

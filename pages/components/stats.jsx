@@ -56,8 +56,8 @@ export default function Stats(props){
 
     //Chart needs id to get updated
     return(
-        <div className={'stats w-25 mx-auto'}>
-            <Bar datasetIdKey={props.key} options={chartOptions} data={chartData} />            
+        <div style={{visibility: props.idKey === '' && 'hidden'}} className='stats w-25'>
+            <Bar datasetIdKey={props.idKey} options={chartOptions} data={chartData} />            
         </div>
     )
 }
