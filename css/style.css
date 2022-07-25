@@ -31,3 +31,8 @@ body{
 .profile-cont{
     width: fit-content;
 }
+
+.profile-type{
+    font-family: 'Roboto';
+    font-weight: 900;
+}
