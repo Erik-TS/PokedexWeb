@@ -2,8 +2,8 @@ import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
 import ProfileArea from './profileArea'
 
-export default function InfoBlock(props) {
-    const url = `https://pokeapi.co/api/v2/pokemon/${props.search}`
+export default function InfoBlock(props): JSX.Element {
+    const url: string = `https://pokeapi.co/api/v2/pokemon/${props.search}`
     let { error, data, fetchStatus } = useQuery(['poke'], async () =>
         await axios(url)
     )
@@ -17,7 +17,7 @@ export default function InfoBlock(props) {
             </div>
         )
 
-        let imgUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/'
+        let imgUrl: string = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/'
         if (data.data.id >= 100) imgUrl += `${data.data.id}.png`
         else if (data.data.id >= 10) imgUrl += `0${data.data.id}.png`
         else imgUrl += `00${data.data.id}.png`

@@ -10,7 +10,7 @@ import {
 import { Bar } from 'react-chartjs-2'
 import { useState, useEffect } from 'react';
 
-export default function Stats(props) {
+export default function Stats(props): JSX.Element {
 
     ChartJS.register(
         CategoryScale,
@@ -22,6 +22,7 @@ export default function Stats(props) {
     )
 
     const [chartData, setChartData] = useState({
+        labels: [],
         datasets: [],
     })
 
@@ -56,7 +57,7 @@ export default function Stats(props) {
 
     //Chart needs id to get updated
     return (
-        <div style={{ visibility: props.idKey === '' && 'hidden' }} className='stats w-25 mx-3'>
+        <div style={{ visibility: props.idKey === "" ? "hidden" : "visible" }} className='stats w-25 mx-3'>
             <Bar datasetIdKey={props.idKey} options={chartOptions} data={chartData} />
             <h5 className='text-center mt-3 mb-0'>Abilities</h5>
             <ul className='list-group list-group-horizontal mt-1'>

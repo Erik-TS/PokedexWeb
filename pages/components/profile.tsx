@@ -1,4 +1,4 @@
-export default function Profile(props) {
+export default function Profile(props): JSX.Element {
     return (
         //If pokemon state has no data, all the component is hidden
         <div className='profile mx-3'>

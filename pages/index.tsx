@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import Topbar from './components/topbar'
 import InfoBlock from './components/InfoBlock'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-export default function () {
+export default function(): JSX.Element {
     const [poke, setPoke] = useState('')
-    const cliente = new QueryClient({
+    const cliente: QueryClient = new QueryClient({
         defaultOptions: {
             queries: {
                 refetchOnWindowFocus: false
@@ -13,18 +13,18 @@ export default function () {
         }
     })
 
-    function handlePoke(value) {
+    function handlePoke(value: SetStateAction<string>): void {
         setPoke(value)
     }
 
-    function searchPoke() {
-        const searchInp = document.querySelector('.idNameInput').value.toLocaleLowerCase()
+    function searchPoke(): void {
+        const searchInp: string = document.querySelector('.idNameInput').value.toLocaleLowerCase()
         handlePoke(searchInp)
     }
 
     //Press Enter trigger fetchPokeApi()
     useEffect(() => {
-        let listener = (e) => e.key === 'Enter' && searchPoke()
+        let listener = (e: { key: string }) => e.key === 'Enter' && searchPoke()
         document.addEventListener('keydown', listener)
         
         //The 'useEffect' needs to be cleaned so as not to trigger effects several times
