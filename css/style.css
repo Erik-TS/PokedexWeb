@@ -1,22 +1,22 @@
 :root{
-    --grass: rgb(11, 204, 11);
-    --fire: rgb(245, 108, 58);
-    --water: rgb(104, 173, 253);
-    --bug: greenyellow;
-    --normal: #eef89a;
+    --grass: #9bcc50;
+    --fire: #fd7d24;
+    --water: #4592c4;
+    --bug: #729f3f;
+    --normal: #a4acaf;
     --ice: rgb(199, 248, 255);
-    --dark: rgb(44, 44, 44);
-    --fairy: pink;
-    --poison: rgb(108, 108, 152);
-    --ghost: purple;
-    --rock: rgb(21, 58, 9);
+    --dark: #707070;
+    --fairy: #fdb9e9;
+    --poison: #b97fc9;
+    --ghost: #7b62a3;
+    --rock: #a38c21;
     --ground: #ffff75;
-    --steel: rgb(184, 172, 172);
+    --steel: #9eb7b8;
     --dragon: #1524ff;
-    --fighting: #a20c0c;
-    --psychic: #ef1254;
+    --fighting: #d56723;
+    --psychic: #f366b9;
     --flying: cyan;
-    --electric: yellow;
+    --electric: #eed535;
 }
 
 body{
@@ -33,6 +33,5 @@ body{
 }
 
 .profile-type{
-    font-family: 'Roboto';
-    font-weight: 900;
+    font-family: "Arial";
 }
