@@ -1,60 +1,69 @@
 import axios from "axios"
+import ProfileArea from "./components/profileArea"
+
+function getImage(id: number, index: number) {
+    if (index === 0) return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`
+    else return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}_f${index + 1}.png`
+}
 
 export async function getServerSideProps(context) {
 
     const { search } = context.query
-    let ret: any
     let arr = []
 
-    await axios.get(`https://pokeapi.co/api/v2/pokemon/${search}`)
-        .then(res => {
-            const data = res.data
-            ret = {
-                param: search,
-                name: data.species.name,
-                id: data.id,
-                types: data.types,
-                height: data.height,
-                weight: data.weight
-            }
+    await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${search}`)
+        .then(async res => {
+            const species = res.data
 
-            arr.push(ret)
+            for (let i = 0; i < species.varieties.length; i++) {
+                await axios.get(species.varieties[i].pokemon.url)
+                    .then(res => {
+                        const pokemon = res.data
+                        arr.push({
+                            img: getImage(species.id, i),
+                            param: search,
+                            name: pokemon.name,
+                            id: pokemon.id,
+                            height: pokemon.height,
+                            weight: pokemon.weight,
+                            types: pokemon.types.map(value => value.type.name),
+                            abilities: pokemon.abilities.map(value => value.ability.name),
+                            stats: pokemon.stats.map(value => value.base_stat)
+                        })
+                    })
+                    .catch(err => console.log(`ERROR: ${err}`))
+            }
         })
         .catch(err => {
             arr.push({
                 param: search,
                 name: "Nothing",
                 id: "Nothing",
-                types: [{ type: { name: "Nothing" } }, { type: { name: "Nothing" } }],
+                types: [{ type: { name: "Nothing" } }],
                 height: "Nothing",
                 weight: "Nothing"
             })
 
-            ret = null
         })
 
-    return { props: { ret, arr } }
+    return { props: { arr } }
 }
 
-export default function Search(props: any): JSX.Element {
-
-    function profile(value) {
-        return (
-            <>
-                <h1>Search Page Prototype</h1>
-                <h2>{`Param: ${value.param}`}</h2>
-                <p>{value.name}</p>
-                <p>{value.id}</p>
-                <p>{value.types.map(value => value.type.name.toString())}</p>
-                <p>{value.height}</p>
-                <p>{value.weight}</p>
-            </>
-        )
-    }
+export default function Search(props: any) {
 
     return (
         <div>
-            {profile(props.arr[0])}
+            {props.arr.map(value =>
+                <ProfileArea
+                    imgUrl={value.img}
+                    id={value.id}
+                    key={value.id}
+                    name={value.name}
+                    types={value.types}
+                    abilities={value.abilities}
+                    stats={value.stats}
+                />
+            )}
         </div>
     )
 }
