@@ -42,7 +42,7 @@ export default function Stats(props): JSX.Element {
         })
         setChartOptions({
             indexAxis: 'y',
-            responsive: true,
+            responsive: false,
             plugins: {
                 legend: {
                     position: 'top'
@@ -61,9 +61,7 @@ export default function Stats(props): JSX.Element {
             <Bar datasetIdKey={props.idKey} options={chartOptions} data={chartData} />
             <h5 className='text-center mt-3 mb-0'>Abilities</h5>
             <ul className='list-group list-group-horizontal mt-1'>
-                {props.abilities.map((value: string) => {
-                    <li className='list-group-item flex-fill text-center' key={Math.random()}> {value} </li>
-                })}
+                {props.abilities.map((value: string) => <li className='list-group-item flex-fill text-center' key={Math.random()}> {value} </li>)}
             </ul>
         </div>
     )
