@@ -2,12 +2,11 @@ import axios from "axios"
 import ProfileArea from "./components/profileArea"
 
 function getImage(id: number, index: number) {
-    if (index === 0) return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`
-    else return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}_f${index + 1}.png`
+    if (index === 0) return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id.toString().padStart(3, '0')}.png`
+    else return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id.toString().padStart(3, '0')}_f${index + 1}.png`
 }
 
 export async function getServerSideProps(context) {
-
     const { search } = context.query
     let arr = []
 
@@ -26,9 +25,9 @@ export async function getServerSideProps(context) {
                             id: pokemon.id,
                             height: pokemon.height,
                             weight: pokemon.weight,
-                            types: pokemon.types.map(value => value.type.name),
-                            abilities: pokemon.abilities.map(value => value.ability.name),
-                            stats: pokemon.stats.map(value => value.base_stat)
+                            types: pokemon.types.map((value: { type: { name: string } }) => value.type.name),
+                            abilities: pokemon.abilities.map((value: { ability: { name: string } }) => value.ability.name),
+                            stats: pokemon.stats.map((value: { base_stat: Array<object> }) => value.base_stat)
                         })
                     })
                     .catch(err => console.log(`ERROR: ${err}`))
@@ -49,7 +48,18 @@ export async function getServerSideProps(context) {
     return { props: { arr } }
 }
 
-export default function Search(props: any) {
+export default function Search(props: {
+    arr: [
+        {
+            img: string,
+            id: number,
+            name: string,
+            types: Array<string>,
+            abilities: Array<string>,
+            stats: Array<object>
+        }
+    ]
+}) {
 
     return (
         <div>
@@ -57,7 +67,6 @@ export default function Search(props: any) {
                 <ProfileArea
                     imgUrl={value.img}
                     id={value.id}
-                    key={value.id}
                     name={value.name}
                     types={value.types}
                     abilities={value.abilities}
