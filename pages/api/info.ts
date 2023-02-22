@@ -43,7 +43,6 @@ export default async function handler(req, res) {
                     .then(poke => {
                         const imgUrl = imgs.shift()
                         arr.push({ ...poke.data, imgUrl: imgUrl })
-                        console.log(arr[arr.length - 1])
                     })
             }
             res.status(200).send(JSON.stringify(arr))

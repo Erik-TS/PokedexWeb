@@ -1,6 +1,19 @@
 import Profile from "./profile"
 import Stats from './stats'
 
+export async function getServerSideProps(){
+    return {
+        props: {
+            name: '',
+            imgUrl: '',
+            id: '',
+            stats: {},
+            abilities: [''],
+            types: ['']
+        }
+    }
+}
+
 export default function ProfileArea(props: {
     name: string,
     imgUrl: string,
@@ -23,7 +36,7 @@ export default function ProfileArea(props: {
                     />
                     <Stats
                         key={props.id}
-                        idKey={props.id}
+                        idKey={props.id.toString()}
                         dataArr={props.stats}
                         abilities={props.abilities} />
                 </div>

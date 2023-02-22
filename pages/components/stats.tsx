@@ -10,7 +10,17 @@ import {
 import { Bar } from 'react-chartjs-2'
 import { useState, useEffect } from 'react';
 
-export default function Stats(props): JSX.Element {
+export async function getServerSideProps() {
+    return {
+        props: {
+            dataArr: [''],
+            idKey: '',
+            abilities: ['']
+        }
+    }
+}
+
+export default function Stats(props: { dataArr: any; idKey: string; abilities: string[]; }): JSX.Element {
 
     ChartJS.register(
         CategoryScale,

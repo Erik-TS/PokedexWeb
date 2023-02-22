@@ -1,3 +1,12 @@
+export async function getServerSideProps() {
+    return {
+        props: {
+            img: '',
+            types: ['']
+        }
+    }
+}
+
 export default function Profile(props: { img: string, types: Array<string> }): JSX.Element {
 
     function getWhiteFont(value: string): string {

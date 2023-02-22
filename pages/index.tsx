@@ -1,7 +1,5 @@
-import { SetStateAction, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Topbar from './components/topbar'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Router from 'next/router'
 import ProfileArea from './components/profileArea'
 
 export default function Home() {
