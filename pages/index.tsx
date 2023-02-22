@@ -6,7 +6,7 @@ import ProfileArea from './components/profileArea'
 
 export default function Home() {
     const [loading, setLoading] = useState(false)
-    const [pokemon, setPokemon] = useState({
+    const [pokemon, setPokemon] = useState([{
         name: "",
         id: 0,
         imgUrl: "",
@@ -16,7 +16,7 @@ export default function Home() {
         height: 0,
         stats: [],
         species: { name: "" }
-    })
+    }])
     const [used, setUsed] = useState(false)
     const [found, setFound] = useState(false)
 
@@ -36,7 +36,7 @@ export default function Home() {
                 else if (response.id >= 10) imgUrl += `0${response.id}.png`
                 else imgUrl += `00${response.id}.png`
 
-                setPokemon({ ...response, imgUrl: imgUrl })
+                setPokemon(response)
                 setUsed(true)
                 setFound(true)
                 setLoading(false)
@@ -57,14 +57,20 @@ export default function Home() {
     else if (!loading && used && found) return (
         <div>
             <Topbar search={search} />
-            <ProfileArea
-                name={pokemon.species.name[0].toUpperCase() + pokemon.species.name.substring(1)}
-                id={pokemon.id}
-                imgUrl={pokemon.imgUrl}
-                types={pokemon.types.map(value => value.type.name)}
-                abilities={pokemon.abilities.map(value => value.ability.name)}
-                stats={pokemon.stats.map(value => value.base_stat)}
-            />
+            <ul>
+                {pokemon.map(value =>
+                    <li key={Math.random()}>
+                        <ProfileArea
+                            name={value.species.name[0].toUpperCase() + value.species.name.substring(1)}
+                            id={value.id}
+                            imgUrl={value.imgUrl}
+                            types={value.types.map(value => value.type.name)}
+                            abilities={value.abilities.map(value => value.ability.name)}
+                            stats={value.stats.map(value => value.base_stat)}
+                        />
+                    </li>
+                )}
+            </ul>
         </div>
     )
     else if (!loading && used && !found) return (
