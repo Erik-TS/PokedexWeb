@@ -29,11 +29,6 @@ export default function Home() {
 
         fetch('./api/info', reqInit).then(res => {
             if (res.ok) res.json().then(response => {
-                let imgUrl: string = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/'
-                if (response.id >= 100) imgUrl += `${response.id}.png`
-                else if (response.id >= 10) imgUrl += `0${response.id}.png`
-                else imgUrl += `00${response.id}.png`
-
                 setPokemon(response)
                 setUsed(true)
                 setFound(true)

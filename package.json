@@ -11,10 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tanstack/react-query": "^4.0.10",
-    "axios": "^0.27.2",
     "chart.js": "^3.8.0",
     "next": "^12.1.6",
+    "pokenode-ts": "^1.17.0",
     "react": "^18.1.0",
     "react-chartjs-2": "^4.3.1"
   },
