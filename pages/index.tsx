@@ -42,9 +42,23 @@ export default function Home() {
         })
     }
 
+    function WelcomeMessage() {
+        return (
+            <div className={'welcomeMessage'}>
+                <div>
+                    <h1>Welcome</h1>
+                    <p>
+                        To search pokémon information, enter its name or Pokédex number. Use the species name rather than a specific form or regional variant.
+                    </p>
+                </div>
+            </div>
+        )
+    }
+
     if (!loading && !used) return (
         <div>
             <Topbar search={search} />
+            <WelcomeMessage />
         </div>
     )
     else if (!loading && used && found) return (
