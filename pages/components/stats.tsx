@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2'
 import { useState, useEffect } from 'react';
+import { ListGroup } from 'react-bootstrap';
 
 export async function getServerSideProps() {
     return {
@@ -52,7 +53,7 @@ export default function Stats(props: { dataArr: any; idKey: string; abilities: s
         })
         setChartOptions({
             indexAxis: 'y',
-            responsive: false,
+            responsive: true,
             plugins: {
                 legend: {
                     position: 'top'
@@ -67,12 +68,12 @@ export default function Stats(props: { dataArr: any; idKey: string; abilities: s
 
     //Chart needs id to get updated
     return (
-        <div style={{ visibility: props.idKey === "" ? "hidden" : "visible" }} className='stats w-25 mx-3'>
-            <Bar datasetIdKey={props.idKey} options={chartOptions} data={chartData} />
+        <div style={{ visibility: props.idKey === "" ? "hidden" : "visible" }} >
+            <Bar style={{height: "300px"}} datasetIdKey={props.idKey} options={chartOptions} data={chartData} />
             <h5 className='text-center mt-3 mb-0'>Abilities</h5>
-            <ul className='list-group list-group-horizontal mt-1'>
-                {props.abilities.map((value: string) => <li className='list-group-item flex-fill text-center' key={Math.random()}> {value} </li>)}
-            </ul>
+            <ListGroup horizontal className={"mt-1"}>
+                {props.abilities.map((value: string) => <ListGroup.Item className={"flex-fill text-center"} key={Math.random()}>{value}</ListGroup.Item>)}
+            </ListGroup>
         </div>
     )
 }

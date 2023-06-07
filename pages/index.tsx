@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Topbar from './components/topbar'
 import ProfileArea from './components/profileArea'
+import "bootstrap/dist/css/bootstrap.min.css"
+import { ListGroup } from 'react-bootstrap'
 
 export default function Home() {
     const [loading, setLoading] = useState(false)
@@ -64,9 +66,9 @@ export default function Home() {
     else if (!loading && used && found) return (
         <div>
             <Topbar search={search} />
-            <ul>
+            <ListGroup>
                 {pokemon.map(value =>
-                    <li key={Math.random()}>
+                    <ListGroup.Item key={Math.random()}>
                         <ProfileArea
                             name={value.species.name[0].toUpperCase() + value.species.name.substring(1)}
                             id={value.id}
@@ -75,9 +77,9 @@ export default function Home() {
                             abilities={value.abilities.map(value => value.ability.name)}
                             stats={value.stats.map(value => value.base_stat)}
                         />
-                    </li>
+                    </ListGroup.Item>
                 )}
-            </ul>
+            </ListGroup>
         </div>
     )
     else if (!loading && used && !found) return (
