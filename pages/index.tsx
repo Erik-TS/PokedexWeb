@@ -3,7 +3,14 @@ import Topbar from './components/topbar'
 import ProfileArea from './components/profileArea'
 
 export default function Home() {
-    const [loading, setLoading] = useState(false)
+    enum PageStates {
+        Initial,
+        Loading,
+        Found,
+        NotFound
+    }
+    
+    const [pageState, setPageState] = useState(PageStates.Initial)
     const [pokemon, setPokemon] = useState([{
         name: "",
         id: 0,
@@ -15,12 +22,10 @@ export default function Home() {
         stats: [],
         species: { name: "" }
     }])
-    const [used, setUsed] = useState(false)
-    const [found, setFound] = useState(false)
 
     function search(e) {
         e.preventDefault()
-        setLoading(true)
+        setPageState(PageStates.Loading)
         const query = { name: e.target.name.value }
         const reqInit = {
             method: "POST",
@@ -30,15 +35,9 @@ export default function Home() {
         fetch('./api/info', reqInit).then(res => {
             if (res.ok) res.json().then(response => {
                 setPokemon(response)
-                setUsed(true)
-                setFound(true)
-                setLoading(false)
+                setPageState(PageStates.Found)
             })
-            else {
-                setUsed(true)
-                setFound(false)
-                setLoading(false)
-            }
+            else setPageState(PageStates.NotFound)
         })
     }
 
@@ -55,13 +54,13 @@ export default function Home() {
         )
     }
 
-    if (!loading && !used) return (
+    if (pageState == PageStates.Initial) return (
         <div>
             <Topbar search={search} />
             <WelcomeMessage />
         </div>
     )
-    else if (!loading && used && found) return (
+    else if (pageState == PageStates.Found) return (
         <div>
             <Topbar search={search} />
             <ul>
@@ -80,16 +79,21 @@ export default function Home() {
             </ul>
         </div>
     )
-    else if (!loading && used && !found) return (
+    else if (pageState == PageStates.NotFound) return (
         <div>
             <Topbar search={search} />
             <h2 className={'text-center mt-5'}>Not found!</h2>
         </div>
     )
-    else return (
+    else if (pageState == PageStates.Loading) return (
         <div>
             <Topbar />
             <h2 className={'text-center mt-5'}>LOADING...</h2>
+        </div>
+    )
+    else return (
+        <div>
+            <h1>Internal Error</h1>
         </div>
     )
 }
